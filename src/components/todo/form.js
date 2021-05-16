@@ -39,6 +39,14 @@ function TodoForm (props) {
               />
           </Form.Label>
           <Form.Label>
+              <Form.Text>Assigned To</Form.Text>
+              <Form.Control
+                  type="text"
+                  name="assignee"
+                  placeholder="Assigned To"
+                  onChange={handleInputChange} />
+          </Form.Label>
+          <Form.Label>
               <Form.Text> Difficulty Rating</Form.Text>
               <Form.Control
                   defaultValue="1"
@@ -48,16 +56,9 @@ function TodoForm (props) {
                   name="difficulty"
                   onChange={handleInputChange} />
           </Form.Label>
-          <Form.Label>
-              <Form.Text>Assigned To</Form.Text>
-              <Form.Control
-                  type="text"
-                  name="assignee"
-                  placeholder="Assigned To"
-                  onChange={handleInputChange} />
-          </Form.Label>
+          
           </Form.Group>
-          <Button variant="primary" type="submit">Add Item</Button>
+          <Button  variant="dark" type="submit">Add Item</Button>
           {/* <button> add me</button> */}
       </Form>
     </Container>

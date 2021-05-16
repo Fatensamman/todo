@@ -69,6 +69,7 @@ function ToDo(props) {
         <div>
           <TodoList
             list={list}
+            setList={setList}
             handleComplete={toggleComplete}
           />
         </div>
