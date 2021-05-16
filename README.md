@@ -1,10 +1,11 @@
 # todo
 
-## Deploy link on Netlify:
-Netlify
+## Deploy links:
+- [Netlify](https://todo-007.netlify.app/)
+- [heroku](https://todo-007.herokuapp.com/)
 
 ## Pull Request Link
-TO DO
+[PulReq](https://github.com/Fatensamman/todo/pull/1)
 
 ## UML Image:
 ![img](./public/aaaa.PNG)
