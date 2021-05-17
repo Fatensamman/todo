@@ -1,54 +1,65 @@
 import React from 'react';
 import TodoForm from './form.js';
 import TodoList from './list.js';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-import {Container,Col,Row,Card} from 'react-bootstrap';
+import { Container, Col, Row, Card } from 'react-bootstrap';
 import './todo.scss';
+import useAjax from '../hooks/useAjaxHook.js';
+
 
 function ToDo(props) {
-  const [list, setList] = useState([]);
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     list: [],
-  //   };
-  // }
-  useEffect(() =>
-  {
-    document.title=`To Do List : complete ${list.filter(item => item.complete).length} / incomplete ${list.filter(item => !item.complete).length}`
+  const [list, _addItem, _toggleComplete, _getTodoItems, handleDelete] = useAjax();
+  useEffect(_getTodoItems, []);
+  useEffect(() => {
+    document.title = `To Do List : complete ${list.filter(item => item.complete).length} / incomplete ${list.filter(item => !item.complete).length}`
   })
 
-  const addItem = (item) => {
-    item._id = Math.random();
-    item.complete = false;
-    setList([...list, item]);
-  };
+  //   const addItem = (item) => {
+  //     item.complete = false;
 
-  const toggleComplete = id => {
+  //     async function _add() {
+  //         let results = await axios.post('https://api-js401.herokuapp.com/api/v1/todo/', item)
+  //         item._id = results.data._id;
+  //         // console.log(result,'addItem =---------')
+  //         setList([...list, item]);
+  //     }
+  //     _add();
+  // }
 
-    let item = list.filter(i => i._id === id)[0] || {};
+  //   const toggleComplete = id => {
 
-    if (item._id) {
-      item.complete = !item.complete;
-      let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
-      setList(newList);
-    }
+  //     let item = list.filter(i => i._id === id)[0] || {};
 
-  };
+  //     if (item._id) {
+  //       item.complete = !item.complete;
+  //       let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
+  //       setList(newList);
+  //     }
+  //     async function _Complete() {
+  //       console.log('this is the PUT req', item)
+  //       let results = await axios.put(`https://api-js401.herokuapp.com/api/v1/todo/${item._id}`, item)
+  //       console.log('this is the result from the PUT', results)
+  //   }
+  //   _Complete();
+  //   };
 
-  useEffect(() => {
-    let menu = [
-      { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A' },
-      { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A' },
-      { _id: 3, complete: false, text: 'Walk the Dog', difficulty: 4, assignee: 'Person B' },
-      { _id: 4, complete: true, text: 'Do Homework', difficulty: 3, assignee: 'Person C' },
-      { _id: 5, complete: false, text: 'Take a Nap', difficulty: 1, assignee: 'Person B' },
-    ];
+  //   async function handleDelete(id) {
+  //     await axios.delete(`https://api-js401.herokuapp.com/api/v1/todo/${id}`);
+  //     let newList = list.filter(item => item._id !== id);
+  //     return setList(newList);
+  // }
 
-    setList(menu);
-  }, []);
+
+  // useEffect(() => {
+  //   async function _getData() {
+  //       let res = {};
+  //       res = await axios.get('https://api-js401.herokuapp.com/api/v1/todo/')
+  //       console.log('this is the res back from api', res)
+  //       setList(res.data.results)
+  //   }
+  //   _getData();
+  // }, []);
 
   return (
     <>
@@ -58,28 +69,29 @@ function ToDo(props) {
           </h2>
       </header>
       <Container fluid="md" style={{ marginTop: '4rem' }}>
-      <Row className="justify-content-md-center">
-        <Col md={3}>
-        <Card >
-									<TodoForm handleSubmit={addItem} />
-						</Card>
+        <Row className="justify-content-md-center">
+          <Col md={3}>
+            <Card >
+              <TodoForm handleSubmit={_addItem} />
+            </Card>
 
-        </Col>
-        <Col md={{ span: 7, offset: 0 }}>
-        <div>
-          <TodoList
-            list={list}
-            setList={setList}
-            handleComplete={toggleComplete}
-          />
-        </div>
-        </Col>
+          </Col>
+          <Col md={{ span: 7, offset: 0 }}>
+            <div>
+              <TodoList
+                list={list}
+                // setList={setList}
+                handleComplete={_toggleComplete}
+                handleDelete={handleDelete}
+              />
+            </div>
+          </Col>
 
 
         </Row>
       </Container>
-      
-      </>
+
+    </>
   );
 }
 
