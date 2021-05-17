@@ -9,7 +9,7 @@ import useAjax from '../hooks/useAjaxHook.js';
 
 
 function ToDo() {
-  const url = 'https://api-js401.herokuapp.com/api/v1/todo';
+  const url = 'https://api-js401.herokuapp.com/api/v1/todo/';
   const [list, setList] = useState([]);
 
   useEffect(() => {
