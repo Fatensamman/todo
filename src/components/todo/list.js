@@ -1,6 +1,6 @@
 import React from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 
 
 
@@ -35,24 +35,23 @@ const TodoList = (props) => {
   // };
   return (
 
-    <ListGroup style={{ height: '10rem' }}>
+    <ListGroup style={{height:'10rem'}}>
       {props.list.map(item => (
-        <Toast
-          onClose={() => props.handleDelete(item._id)}
+        <Toast 
+        autohide={false} onClose={()=>props.handleDelete(item._id)}
           className={`complete-${item.complete.toString()}`}
           key={item._id}
-          onClick={() => props.handleComplete(item._id)}
         >
-          <Toast.Header >
-            <Badge pill variant={item.complete ? "success" : "danger"}>{item.complete ? "Complete" : "Pending..."}</Badge>
+          <Toast.Header>
+            <Badge pill variant={item.complete ? "success":"danger"}>{item.complete ? "Complete" : "Pending..."}</Badge>
             <strong className="mr-auto" style={{ marginLeft: '20px' }}>{item.assignee}</strong>
           </Toast.Header>
-          <Toast.Body >
-
+          <Toast.Body onClick={() => props.handleComplete(item._id)}>
+          
 
             {item.text}
-            <br />
-            <div style={{ float: 'right' }} class="difficultly">difficulty : {item.difficulty}</div>
+            <br/>
+            <div style={{float:'right'}}class="difficultly">difficulty : {item.difficulty}</div>
           </Toast.Body>
         </Toast>
       ))}
