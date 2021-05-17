@@ -12,10 +12,12 @@ function TodoList (props) {
     return (
       <ul>
         {props.list.map(item => (
-          <ListGroup.Item style={{cursor:'pointer',height:'3rem'}} variant={(item.complete) ? 'danger' : 'success'}
+          <ListGroup.Item style={{cursor:'pointer',height:'3rem'}} variant={(item.complete) ? 'success':'danger'}
             className={`complete-${item.complete.toString()}`}
-            key={item._id}>
-            <span onClick={() => props.handleComplete(item._id)}>
+            key={item._id}
+            onClick={() => props.handleComplete(item._id)}
+            >
+            <span >
               {item.text}
             </span>
             {/* <button onClick={() => deleteItem(item._id)}>Delete</button> */}
@@ -25,5 +27,34 @@ function TodoList (props) {
       </ul>
     );
   }
+// import React from 'react';
+// import { Toast, Badge } from 'react-bootstrap';
+
+// const TodoList = (props) => {
+
+//   return (
+
+//     <ListGroup>
+//       {props.list.map(item => (
+//         <Toast
+//           // action
+//           // variant={item.complete ? "danger" : "success"}
+//           className={`complete-${item.complete.toString()}`}
+//           key={item._id}
+//           onClick={() => props.handleComplete(item._id)}
+//         >
+//           <Toast.Header>
+//             <Badge pill variant={item.complete ? "danger" : "success"}>{item.complete ? "Complete" : "Pending..."}</Badge>{" "}
+//             <strong className="mr-auto" style={{marginLeft : '20px'}}>Name</strong>
+//           </Toast.Header>
+//           <Toast.Body >
+//             {item.text}
+//             <div class="difficultly">difficulty</div>
+//           </Toast.Body>
+//         </Toast>
+//       ))}
+//     </ListGroup>
+//   );
+// }
 
 export default TodoList;
