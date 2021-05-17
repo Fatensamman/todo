@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import axios from 'axios';
 
 export default function useAjax (obj){
@@ -40,7 +38,6 @@ export default function useAjax (obj){
 
     
  return {
-    //  returnData,
      getAjax,
      putAjax,
      deleteAjax,
