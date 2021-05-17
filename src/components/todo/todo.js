@@ -10,10 +10,12 @@ import useAjax from '../hooks/useAjaxHook.js';
 
 function ToDo(props) {
   const [list, _addItem, _toggleComplete, _getTodoItems, handleDelete] = useAjax();
-  useEffect(_getTodoItems, []);
   useEffect(() => {
     document.title = `To Do List : complete ${list.filter(item => item.complete).length} / incomplete ${list.filter(item => !item.complete).length}`
   })
+ 
+ useEffect(() => {
+  _getTodoItems()}, []);
 
   //   const addItem = (item) => {
   //     item.complete = false;
