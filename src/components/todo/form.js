@@ -12,7 +12,6 @@ function TodoForm(props) {
   }
   // function TodoForm(props) {
   //   const [item, setItem] = useState({});
-
   //   const handleInputChange = e => {
   //     setItem({ ...item, [e.target.name]: e.target.value });
   //   };
