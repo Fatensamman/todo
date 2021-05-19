@@ -24,44 +24,44 @@ function TodoForm(props) {
   //     setItem(m);
   //   };
 
-    return (
-      <Container>
-        <h3>Add Item</h3>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>
-              <Form.Text>To Do Item</Form.Text>
-              <Form.Control
-                name="text"
-                placeholder="Add to Do List Item"
-                onChange={handleInputChange}
-              />
-            </Form.Label>
-            <Form.Label>
-              <Form.Text>Assigned To</Form.Text>
-              <Form.Control
-                type="text"
-                name="assignee"
-                placeholder="Assigned To"
-                onChange={handleInputChange} />
-            </Form.Label>
-            <Form.Label>
-              <Form.Text> Difficulty Rating</Form.Text>
-              <Form.Control
-                defaultValue="1"
-                type="range"
-                min="0"
-                max="5"
-                name="difficulty"
-                onChange={handleInputChange} />
-            </Form.Label>
+  return (
+    <Container>
+      <h3>Add Item</h3>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>
+            <Form.Text>To Do Item</Form.Text>
+            <Form.Control
+              name="text"
+              placeholder="Add to Do List Item"
+              onChange={handleInputChange}
+            />
+          </Form.Label>
+          <Form.Label>
+            <Form.Text>Assigned To</Form.Text>
+            <Form.Control
+              type="text"
+              name="assignee"
+              placeholder="Assigned To"
+              onChange={handleInputChange} />
+          </Form.Label>
+          <Form.Label>
+            <Form.Text> Difficulty Rating</Form.Text>
+            <Form.Control
+              defaultValue="1"
+              type="range"
+              min="0"
+              max="5"
+              name="difficulty"
+              onChange={handleInputChange} />
+          </Form.Label>
 
-          </Form.Group>
-          <Button variant="dark" type="submit">Add Item</Button>
-          {/* <button> add me</button> */}
-        </Form>
-      </Container>
-    );
-  }
+        </Form.Group>
+        <Button variant="dark" type="submit">Add Item</Button>
+        {/* <button> add me</button> */}
+      </Form>
+    </Container>
+  );
+}
 
-  export default TodoForm;
+export default TodoForm;

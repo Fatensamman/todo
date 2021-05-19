@@ -4,7 +4,7 @@ export default function useAjax(obj) {
     return axios[obj.method](obj.url, obj.body)
 }
 
-
+// its really a simple way
     // const [returnData, setReturnData] = useState([]);
 
     // async function getAjax(url){
