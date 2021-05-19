@@ -24,15 +24,15 @@ const Pagination = ({ allitems }) => {
                     <Dropdown.Item eventKey="6">6</Dropdown.Item>
                 </DropdownButton>
                 {pageNumbers.map(number => (
-                    <Button style={{ cursor: 'pointer' }} variant="dark" key={number} className='item' onClick={() => pagination.pag(number)} className='link'>
+                    <Button style={{ cursor: 'pointer' }} variant="dark" key={number} className='item' onClick={() => pagination.pag(number)}>
                         {number}
                     </Button>
                 ))}
 
-                <Button className='item' style={{ cursor: 'pointer' }} onClick={pagination.thisPage > 1 ? () => pagination.pag(pagination.thisPage--) : () => pagination.pag(pagination.thisPage)} className='link'>
+                <Button className='item' style={{ cursor: 'pointer' }} onClick={pagination.thisPage > 1 ? () => pagination.pag(pagination.thisPage--) : () => pagination.pag(pagination.thisPage)} >
                     Previous
                     </Button>
-                <Button style={{ cursor: 'pointer' }} onClick={pageNumbers.length != pagination.thisPage ? () => pagination.pag(pagination.thisPage++) : () => pagination.pag(pagination.thisPage)} className='link'>
+                <Button style={{ cursor: 'pointer' }} onClick={pageNumbers.length !== pagination.thisPage ? () => pagination.pag(pagination.thisPage++) : () => pagination.pag(pagination.thisPage)} className='item'>
                     Next
                     </Button>
 
