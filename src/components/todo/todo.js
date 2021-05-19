@@ -4,8 +4,10 @@ import TodoList from './list.js';
 import { useState, useEffect } from 'react';
 
 import { Container, Col, Row, Card } from 'react-bootstrap';
-import './todo.scss';
 import useAjax from '../hooks/useAjaxHook.js';
+import PaginationProvider from '../context/paginationContext'
+import Pagination from './pagination.js'
+import './todo.scss';
 
 
 function ToDo() {
@@ -16,11 +18,8 @@ function ToDo() {
     document.title = `To Do List : complete ${list.filter(item => item.complete).length} / incomplete ${list.filter(item => !item.complete).length}`
   })
 
-  // useEffect(_getTodoItems, [_getTodoItems]);
-
   const addItem = (item) => {
     item.complete = false;
-
     async function _add() {
       let results = await useAjax({ url, body: item, method: 'post' })
       item._id = results.data._id;
@@ -40,9 +39,7 @@ function ToDo() {
       setList(newList);
     }
     async function _Complete() {
-      // console.log('this is the PUT req', item)
       await useAjax({ url: `${url}${item._id}`, body: item, method: 'put' });
-      // console.log('this is the result from the PUT', results)
     }
     _Complete();
   };
@@ -69,35 +66,38 @@ function ToDo() {
 
   return (
     <>
-      <header>
-        <h2 className="h2-1">
-          There are {list.filter(item => !item.complete).length} Items To Complete
+      <PaginationProvider list={list}>
+        <header>
+          <h2 className="h2-1">
+            There are {list.filter(item => !item.complete).length} Items To Complete
           </h2>
-      </header>
-      <Container fluid="md" style={{ marginTop: '4rem' }}>
-        <Row className="justify-content-md-center">
-          <Col md={3}>
-            <Card >
-              <TodoForm handleSubmit={addItem} />
-            </Card>
+        </header>
+        <Container fluid="md" style={{ marginTop: '4rem' }}>
+          <Row className="justify-content-md-center">
+            <Col md={3}>
+              <Card >
+                <TodoForm handleSubmit={addItem} />
+              </Card>
+            </Col>
 
-          </Col>
-          <Col md={{ span: 7, offset: 0 }}>
-            <div>
-              <TodoList
-                list={list}
-                // setList={setList}
-                handleComplete={toggleComplete}
-                handleDelete={handleDelete}
+            <Col md={{ span: 7, offset: 0 }}>
+              <Pagination
+                allitems={list.length}
               />
-            </div>
-          </Col>
-        </Row>
-      </Container>
+              <div style={{ marginTop: '2rem' }}>
+                <TodoList
+                  // list={list}
+                  // setList={setList}
+                  handleComplete={toggleComplete}
+                  handleDelete={handleDelete}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </PaginationProvider>
 
     </>
   );
 }
-
-
 export default ToDo;
