@@ -1,8 +1,10 @@
 import React from 'react';
 import TodoForm from './form.js';
+import { LoginContext } from './../auth/context';
 import TodoList from './list.js';
 import { useState, useEffect } from 'react';
 
+import { useContext } from 'react'
 import { Container, Col, Row, Card } from 'react-bootstrap';
 import useAjax from '../hooks/useAjaxHook.js';
 import PaginationProvider from '../context/paginationContext'
@@ -13,44 +15,53 @@ import './todo.scss';
 function ToDo() {
   const url = 'https://api-js401.herokuapp.com/api/v1/todo/';
   const [list, setList] = useState([]);
+  const loginContext = useContext(LoginContext);
 
   useEffect(() => {
     document.title = `To Do List : complete ${list.filter(item => item.complete).length} / incomplete ${list.filter(item => !item.complete).length}`
   })
 
   const addItem = (item) => {
-    item.complete = false;
-    async function _add() {
-      let results = await useAjax({ url, body: item, method: 'post' })
-      item._id = results.data._id;
-      // console.log(result,'addItem =---------')
-      setList([...list, item]);
+    if (loginContext.user.user.capabilities.includes('create')) {
+      item.complete = false;
+
+      console.log(loginContext.user.user.type);
+      async function _add() {
+        let results = await useAjax({ url, body: item, method: 'post' })
+        item._id = results.data._id;
+        setList([...list, item]);
+
+        // console.log(results,'addItem =---------')
+      }
+      _add();
     }
-    _add();
   }
 
   const toggleComplete = id => {
+    if (loginContext.user.user.capabilities.includes('update')) {
+      let item = list.filter(i => i._id === id)[0] || {};
 
-    let item = list.filter(i => i._id === id)[0] || {};
-
-    if (item._id) {
-      item.complete = !item.complete;
-      let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
-      setList(newList);
+      if (item._id) {
+        item.complete = !item.complete;
+        let newList = list.map(listItem => listItem._id === item._id ? item : listItem);
+        setList(newList);
+      }
+      async function _Complete() {
+        await useAjax({ url: `${url}${item._id}`, body: item, method: 'put' });
+      }
+      _Complete();
     }
-    async function _Complete() {
-      await useAjax({ url: `${url}${item._id}`, body: item, method: 'put' });
-    }
-    _Complete();
   };
 
   function handleDelete(id) {
-    async function _handleDelete(id) {
-      await useAjax({ url: url + id, method: 'delete' });
-      let newList = list.filter(item => item._id !== id);
-      return setList(newList);
+    if (loginContext.user.user.capabilities.includes('delete')) {
+      async function _handleDelete(id) {
+        await useAjax({ url: url + id, method: 'delete' });
+        let newList = list.filter(item => item._id !== id);
+        return setList(newList);
+      }
+      _handleDelete(id);
     }
-    _handleDelete(id);
   }
 
 
