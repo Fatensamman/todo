@@ -1,7 +1,7 @@
 # ToDo
 
 ## Deploy links:
-- [Netlify](https://todo-007.netlify.app/)
+- [heroku](https://todo-007.herokuapp.com/)
 #### Collaporated with Raghad Mustafa
 ## UML Image:
 ![img](./public/aaaa.PNG)
