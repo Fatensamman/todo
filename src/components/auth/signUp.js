@@ -1,6 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { If, Else, Then } from 'react-if';
 import { LoginContext } from './context';
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import { Card } from 'react-bootstrap';
 
 const SignUp = () => {
 	const loginContext = useContext(LoginContext);
@@ -36,34 +41,49 @@ const SignUp = () => {
 				<div></div>
 			</Then>
 			<Else>
-				<form onSubmit={handleSubmitSignup}>
-					<input
-						type="email"
-						name="email"
-						placeholder="Enter Email"
-						onChange={handleChangeEmail}
-					/>
-					<input
-						type="text"
-						name="username"
-						placeholder="Enter Username"
-						onChange={handleChangeUsername}
-					/>
-					<input
-						type="password"
-						name="password"
-						placeholder="Enter password"
-						onChange={handleChangePassword}
-					/>
+				<Card style={{ float: 'left', width: "300px", padding: '10px', marginTop: "100px" }}>
+					<h3>Sign Up Form</h3>
+					<Form onSubmit={handleSubmitSignup}>
+						<Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
 
-					<select name="roles" id="roles" onChange={handleChangeRole}>
-						<option value="user">user</option>
-						<option value="editor">editor</option>
-						<option value="admin">admin</option>
-					</select>
+							<Col sm={10}>
+								<Form.Control type="email" placeholder="Enter Email" onChange={handleChangeEmail} />
+							</Col>
+						</Form.Group>
+						<Form.Group as={Row} className="mb-3" >
 
-					<button>SignUp</button>
-				</form>
+							<Col sm={10}>
+								<Form.Control type="text" placeholder="Enter username" onChange={handleChangeUsername} />
+							</Col>
+						</Form.Group>
+
+						<Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
+
+							<Col sm={10}>
+								<Form.Control type="password" placeholder="Password" onChange={handleChangePassword} />
+							</Col>
+						</Form.Group>
+						<Form.Group as={Row} className="mb-3">
+							<Col sm={{ span: 10, offset: 2 }}>
+								<Form.Label>
+									Role :
+    </Form.Label>
+								<select name="roles" id="roles" onChange={handleChangeRole}>
+									<option value="user">user</option>
+									<option value="editor">editor</option>
+									<option value="admin">admin</option>
+								</select>
+							</Col>
+						</Form.Group>
+
+
+						<Form.Group as={Row} className="mb-3">
+							<Col sm={{ span: 10, offset: 2 }}>
+								<Button type="submit">Sign Up</Button>
+							</Col>
+						</Form.Group>
+					</Form>
+				</Card>
 			</Else>
 		</If>
 	);

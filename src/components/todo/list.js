@@ -24,7 +24,7 @@ const TodoList = (props) => {
           <Toast.Body>
             {item.text}
             <br />
-            <div style={{ float: 'right' }} class="difficultly">difficulty : {item.difficulty}</div>
+            <div style={{ float: 'right' }} className="difficultly">difficulty : {item.difficulty}</div>
           </Toast.Body>
         </Toast>
       ))}

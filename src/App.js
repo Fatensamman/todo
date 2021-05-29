@@ -30,11 +30,12 @@ export default function App() {
   const loginContext = useContext(LoginContext);
   return (
     <>
-      <Navbar bg="primary" variant="dark">
-        <Navbar.Brand className="ml-1" href="#home">Home</Navbar.Brand>
-        <Login />
-        <SignUp />
+      <Navbar bg="primary" variant="dark" style={{ zIndex: -10 }}>
+        <Navbar.Brand className="ml-1" href="#home" style={{ cursor: 'pointer' }} >Home</Navbar.Brand>
+        <h2 style={{ color: "white", marginLeft: "40%" }}>TO DO APP</h2>
       </Navbar>
+      <Login />
+      <SignUp />
       <If condition={loginContext.loggedIn}>
         <Then>
           <ToDo />
